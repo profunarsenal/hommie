@@ -2,6 +2,7 @@
   <div class="building">
     <div class="container">
       <div class="building-header">
+        <search-field />
         <div class="building-results">
           Показано
           <span>30 результатов</span>
@@ -19,12 +20,14 @@
 
 <script>
 import CardComponent from "@/components/CardComponent.vue";
+import SearchField from "@/components/SearchField.vue";
 
 export default {
   name: "Building-Component",
 
   components: {
     CardComponent,
+    SearchField,
   },
 };
 </script>
@@ -32,7 +35,11 @@ export default {
 <style lang="scss" scoped>
 .building {
   width: 100%;
-  padding: 42px 0 60px;
+  padding: 60px 0;
+
+  @media (max-width: 767px) {
+    padding: 30px 0;
+  }
 }
 
 .building-header {
@@ -49,9 +56,14 @@ export default {
   span {
     font-weight: 700;
   }
+
+  @media (max-width: 767px) {
+    font-size: 16px;
+  }
 }
 
 .building-sort-btn {
+  display: none;
   padding: 16px 40px 16px 20px;
   border: 1px solid rgba(171, 175, 185, 0.5);
   border-radius: 12px;

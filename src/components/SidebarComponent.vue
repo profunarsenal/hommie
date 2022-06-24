@@ -1,9 +1,11 @@
 <template>
   <div class="sidebar">
     <div class="container">
-      <div class="sidebar-wrapper">
+      <form class="sidebar-wrapper">
         <div class="sidebar-widget">
-          <h4 class="widget-title title">Метро поблизости</h4>
+          <h4 @click="toggleWidget" class="widget-title title">
+            Метро поблизости
+          </h4>
           <div class="metro-checkboxes">
             <label class="checkbox">
               <input class="checkbox-hide" type="checkbox" />
@@ -68,7 +70,7 @@
           </div>
         </div>
         <div class="sidebar-widget">
-          <h4 class="widget-title title">Срок сдачи</h4>
+          <h4 @click="toggleWidget" class="widget-title title">Срок сдачи</h4>
           <div class="term-checkboxes">
             <label class="checkbox">
               <input class="checkbox-hide" type="checkbox" />
@@ -89,19 +91,21 @@
           </div>
         </div>
         <div class="sidebar-widget">
-          <h4 class="widget-title title">Дополнительные опции</h4>
+          <h4 @click="toggleWidget" class="widget-title title">
+            Дополнительные опции
+          </h4>
           <div class="options-checkboxes">
             <label class="option-checkbox">
               <input class="option-checkbox-hide" type="checkbox" />
-              <span class="option-checkbox-show">Двор без машин</span>
+              <span class="option-checkbox-show">Парковка</span>
             </label>
             <label class="option-checkbox">
               <input class="option-checkbox-hide" type="checkbox" />
-              <span class="option-checkbox-show">Кладовая</span>
+              <span class="option-checkbox-show">Комфорт</span>
             </label>
             <label class="option-checkbox">
               <input class="option-checkbox-hide" type="checkbox" />
-              <span class="option-checkbox-show">Панорамные окна</span>
+              <span class="option-checkbox-show">Детский сад</span>
             </label>
             <label class="option-checkbox">
               <input class="option-checkbox-hide" type="checkbox" />
@@ -109,7 +113,7 @@
             </label>
             <label class="option-checkbox">
               <input class="option-checkbox-hide" type="checkbox" />
-              <span class="option-checkbox-show">С ремонтом</span>
+              <span class="option-checkbox-show">С отделкой</span>
             </label>
             <label class="option-checkbox">
               <input class="option-checkbox-hide" type="checkbox" />
@@ -117,7 +121,7 @@
             </label>
             <label class="option-checkbox">
               <input class="option-checkbox-hide" type="checkbox" />
-              <span class="option-checkbox-show">Высокие потолки</span>
+              <span class="option-checkbox-show">Пентхаус</span>
             </label>
           </div>
         </div>
@@ -128,10 +132,10 @@
             <span class="toggle-checkbox-show"></span>
           </label>
         </div>
-        <button class="reset-btn">
+        <button class="reset-btn" type="reset">
           <span>Сбросить все фильтры</span>
         </button>
-      </div>
+      </form>
     </div>
   </div>
 </template>
@@ -139,13 +143,42 @@
 <script>
 export default {
   name: "Sidebar-Component",
+
+  methods: {
+    toggleWidget(e) {
+      e.target.classList.toggle("toggle-widget");
+      e.target.nextElementSibling.classList.toggle("toggle-widget-content");
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+.sidebar {
+  @media (max-width: 767px) {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: -100%;
+    height: 100%;
+    padding-top: 60px;
+    background-color: #f4f4f4;
+    transition: all 0.3s;
+
+    &.toggle-sidebar {
+      left: 0;
+      overflow: scroll;
+    }
+  }
+}
+
 .sidebar-wrapper {
   width: 284px;
   padding: 60px 0;
+
+  @media (max-width: 767px) {
+    padding: 30px 0;
+  }
 }
 
 .sidebar-widget {
@@ -173,10 +206,19 @@ export default {
     position: absolute;
     top: 6px;
     right: 0;
-    width: 24px;
-    height: 24px;
+    width: 10px;
+    height: 8px;
     background-image: url("@/assets/icons/icon-arrow.svg");
     background-repeat: no-repeat;
+    transition: all 0.3s;
+  }
+
+  &.toggle-widget {
+    margin-bottom: 0;
+
+    &::after {
+      transform: rotate(180deg);
+    }
   }
 }
 
@@ -388,5 +430,9 @@ export default {
       background-color: rgba(171, 175, 185, 0.5);
     }
   }
+}
+
+.toggle-widget-content {
+  display: none;
 }
 </style>

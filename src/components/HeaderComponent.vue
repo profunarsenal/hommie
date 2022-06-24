@@ -15,19 +15,31 @@
           <img src="@/assets/icons/icon-dark.svg" alt="dark" />
         </button>
       </div>
+      <mobile-navigation />
     </div>
   </header>
 </template>
 
 <script>
+import MobileNavigation from "@/components/MobileNavigation.vue";
+
 export default {
   name: "Header-Component",
+
+  components: {
+    MobileNavigation,
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .header {
   background: #fdfdfd;
+
+  @media (max-width: 767px) {
+    position: relative;
+    z-index: 4;
+  }
 }
 
 .header-wrapper {
@@ -36,6 +48,25 @@ export default {
   justify-content: space-between;
   min-height: 88px;
   padding: 0 40px;
+
+  @media (max-width: 767px) {
+    min-height: 60px;
+    padding: 0 10px;
+  }
+}
+
+.header-logo {
+  img {
+    width: 136px;
+    height: 24px;
+  }
+
+  @media (max-width: 767px) {
+    img {
+      width: 116px;
+      height: 24px;
+    }
+  }
 }
 
 .header-search {
@@ -50,6 +81,10 @@ export default {
     height: 26px;
     background-image: url("@/assets/icons/icon-search.svg");
     background-repeat: no-repeat;
+  }
+
+  @media (max-width: 767px) {
+    display: none;
   }
 }
 
@@ -85,6 +120,10 @@ export default {
     border: 0.5px solid rgba(171, 175, 185, 0.25);
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.04), 0px 4px 4px rgba(0, 0, 0, 0.08);
     border-radius: 57px;
+  }
+
+  @media (max-width: 767px) {
+    display: none;
   }
 }
 

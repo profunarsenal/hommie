@@ -49,6 +49,22 @@ export default {
       }
     }
   }
+
+  @media (max-width: 1300px) {
+    flex: 0 1 48%;
+  }
+
+  @media (max-width: 992px) {
+    flex: 0 1 100%;
+  }
+
+  @media (max-width: 767px) {
+    flex: 0 1 48%;
+  }
+
+  @media (max-width: 600px) {
+    flex: 0 1 100%;
+  }
 }
 
 .card-image {
@@ -59,6 +75,10 @@ export default {
     height: 100%;
     object-fit: cover;
     transition: all 0.3s;
+  }
+
+  @media (max-width: 992px) {
+    max-height: 360px;
   }
 }
 
