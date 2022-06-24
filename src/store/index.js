@@ -906,6 +906,9 @@ export default createStore({
     ]
   },
   getters: {
+    getBuildings(state) {
+      return state.building
+    }
   },
   mutations: {
   },
