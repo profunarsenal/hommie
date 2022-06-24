@@ -125,6 +125,10 @@ body {
   font-weight: 500;
   color: #142036;
   background: #f4f4f4;
+
+  &.lock {
+    overflow: hidden;
+  }
 }
 
 .container {
@@ -134,6 +138,10 @@ body {
 
   @media (min-width: 1600px) {
     max-width: 1430px;
+    padding: 0 15px;
+  }
+
+  @media (max-width: 767px) {
     padding: 0 15px;
   }
 }
