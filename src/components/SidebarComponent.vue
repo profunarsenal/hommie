@@ -73,7 +73,7 @@
           <h4 @click="toggleWidget" class="widget-title title">Срок сдачи</h4>
           <div class="term-checkboxes">
             <label class="checkbox">
-              <input class="checkbox-hide" type="checkbox" />
+              <input class="checkbox-hide" type="checkbox" checked />
               <span class="checkbox-show">Любой</span>
             </label>
             <label class="checkbox">
@@ -101,7 +101,7 @@
             </label>
             <label class="option-checkbox">
               <input class="option-checkbox-hide" type="checkbox" />
-              <span class="option-checkbox-show">Комфорт</span>
+              <span class="option-checkbox-show">Школа</span>
             </label>
             <label class="option-checkbox">
               <input class="option-checkbox-hide" type="checkbox" />
