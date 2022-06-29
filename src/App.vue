@@ -136,11 +136,6 @@ body {
   padding: 0 40px;
   margin: 0 auto;
 
-  @media (min-width: 1600px) {
-    max-width: 1430px;
-    padding: 0 15px;
-  }
-
   @media (max-width: 767px) {
     padding: 0 15px;
   }

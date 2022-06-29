@@ -5,7 +5,12 @@
         <img src="@/assets/icons/icon-logo.svg" alt="logo hommie" />
       </div>
       <div class="header-search">
-        <input class="input-search" type="text" placeholder="Поиск" />
+        <input
+          class="input-search"
+          type="text"
+          placeholder="Поиск"
+          v-model="fieldSearch"
+        />
       </div>
       <div class="header-theme">
         <button class="theme-btn theme-light-btn">
@@ -28,6 +33,17 @@ export default {
 
   components: {
     MobileNavigation,
+  },
+
+  computed: {
+    fieldSearch: {
+      get() {
+        return this.$store.state.fieldSearch;
+      },
+      set(value) {
+        this.$store.commit("updateFieldSearch", value);
+      },
+    },
   },
 };
 </script>

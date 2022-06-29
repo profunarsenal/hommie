@@ -8,61 +8,121 @@
           </h4>
           <div class="metro-checkboxes">
             <label class="checkbox">
-              <input class="checkbox-hide" type="checkbox" />
+              <input
+                class="checkbox-hide"
+                type="checkbox"
+                id="alabinskaya"
+                value="Алабинская"
+                v-model="metroCheckboxes"
+              />
               <span class="checkbox-show">
                 <span class="metro-name">Алабинская</span>
               </span>
             </label>
             <label class="checkbox">
-              <input class="checkbox-hide" type="checkbox" />
+              <input
+                class="checkbox-hide"
+                type="checkbox"
+                id="rossiyskaya"
+                value="Российская"
+                v-model="metroCheckboxes"
+              />
               <span class="checkbox-show">
                 <span class="metro-name">Российская</span>
               </span>
             </label>
             <label class="checkbox">
-              <input class="checkbox-hide" type="checkbox" />
+              <input
+                class="checkbox-hide"
+                type="checkbox"
+                id="moskovskaya"
+                value="Московская"
+                v-model="metroCheckboxes"
+              />
               <span class="checkbox-show">
                 <span class="metro-name">Московская</span>
               </span>
             </label>
             <label class="checkbox">
-              <input class="checkbox-hide" type="checkbox" />
+              <input
+                class="checkbox-hide"
+                type="checkbox"
+                id="gagarinskaya"
+                value="Гагаринская"
+                v-model="metroCheckboxes"
+              />
               <span class="checkbox-show">
                 <span class="metro-name">Гагаринская</span>
               </span>
             </label>
             <label class="checkbox">
-              <input class="checkbox-hide" type="checkbox" />
+              <input
+                class="checkbox-hide"
+                type="checkbox"
+                id="sportivnaya"
+                value="Спортивная"
+                v-model="metroCheckboxes"
+              />
               <span class="checkbox-show">
                 <span class="metro-name">Спортивная</span>
               </span>
             </label>
             <label class="checkbox">
-              <input class="checkbox-hide" type="checkbox" />
+              <input
+                class="checkbox-hide"
+                type="checkbox"
+                id="sovetskaya"
+                value="Советская"
+                v-model="metroCheckboxes"
+              />
               <span class="checkbox-show">
                 <span class="metro-name">Советская</span>
               </span>
             </label>
             <label class="checkbox">
-              <input class="checkbox-hide" type="checkbox" />
+              <input
+                class="checkbox-hide"
+                type="checkbox"
+                id="pobeda"
+                value="Победа"
+                v-model="metroCheckboxes"
+              />
               <span class="checkbox-show">
                 <span class="metro-name">Победа</span>
               </span>
             </label>
             <label class="checkbox">
-              <input class="checkbox-hide" type="checkbox" />
+              <input
+                class="checkbox-hide"
+                type="checkbox"
+                id="bezymyanka"
+                value="Безымянка"
+                v-model="metroCheckboxes"
+              />
               <span class="checkbox-show">
                 <span class="metro-name">Безымянка</span>
               </span>
             </label>
             <label class="checkbox">
-              <input class="checkbox-hide" type="checkbox" />
+              <input
+                class="checkbox-hide"
+                type="checkbox"
+                id="kirovskaya"
+                value="kirovskaya"
+                v-model="metroCheckboxes"
+              />
               <span class="checkbox-show">
                 <span class="metro-name">Кировская</span>
               </span>
             </label>
             <label class="checkbox">
-              <input class="checkbox-hide" type="checkbox" />
+              <input
+                class="checkbox-hide"
+                type="checkbox"
+                id="yungorodok"
+                value="yungorodok"
+                v-model="metroCheckboxes"
+              />
               <span class="checkbox-show">
                 <span class="metro-name">Юнгородок</span>
               </span>
@@ -73,7 +133,7 @@
           <h4 @click="toggleWidget" class="widget-title title">Срок сдачи</h4>
           <div class="term-checkboxes">
             <label class="checkbox">
-              <input class="checkbox-hide" type="checkbox" checked />
+              <input class="checkbox-hide" type="checkbox" />
               <span class="checkbox-show">Любой</span>
             </label>
             <label class="checkbox">
@@ -143,6 +203,17 @@
 <script>
 export default {
   name: "Sidebar-Component",
+
+  computed: {
+    metroCheckboxes: {
+      get() {
+        return this.$store.state.metroCheckboxes;
+      },
+      set(value) {
+        this.$store.commit("updateMetroList", value);
+      },
+    },
+  },
 
   methods: {
     toggleWidget(e) {

@@ -5,14 +5,18 @@
         <search-field />
         <div class="building-results">
           Показано
-          <span>30 результатов</span>
+          <span>{{ filteredBuildings.length }} результатов</span>
         </div>
         <button class="building-sort-btn">
           <span>Сортировать по</span>
         </button>
       </div>
       <div class="building-wrapper">
-        <card-component v-for="card in 10" :key="card" />
+        <card-component
+          v-for="building in filteredBuildings"
+          :key="building"
+          :building="building"
+        />
       </div>
     </div>
   </div>
@@ -28,6 +32,62 @@ export default {
   components: {
     CardComponent,
     SearchField,
+  },
+
+  data() {
+    return {
+      buildings: [],
+    };
+  },
+
+  computed: {
+    fieldSearch() {
+      return this.$store.getters["getFieldSearch"];
+    },
+
+    metroList() {
+      return this.$store.getters["getMetroList"];
+    },
+
+    searchBuildings() {
+      return this.buildings.filter(
+        (building) =>
+          building.name
+            .toLowerCase()
+            .includes(this.fieldSearch.toLowerCase()) ||
+          building.street.toLowerCase().includes(this.fieldSearch.toLowerCase())
+      );
+    },
+
+    filteredBuildings() {
+      const buildings = [];
+
+      this.searchBuildings.forEach((building) => {
+        this.metroList.forEach((metro) => {
+          if (building.metro === metro) {
+            buildings.push(building);
+          }
+        });
+      });
+
+      if (this.metroList.length > 0) {
+        return buildings;
+      } else {
+        return this.searchBuildings;
+      }
+    },
+  },
+
+  mounted() {
+    this.getBuildingsList();
+  },
+
+  methods: {
+    getBuildingsList() {
+      fetch("https://api.jsonbin.io/b/62bbfc57402a5b380240adff")
+        .then((res) => res.json())
+        .then((data) => (this.buildings = data));
+    },
   },
 };
 </script>
@@ -94,8 +154,24 @@ export default {
 }
 
 .building-wrapper {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+
+  @media (max-width: 1300px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr;
+  }
+
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

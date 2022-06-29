@@ -1,22 +1,38 @@
 <template>
   <div class="card">
     <div class="card-image">
-      <img src="@/assets/images/image-1.jpg" alt="building-photo" />
+      <img
+        :src="require(`@/assets/images/${building.image}`)"
+        alt="building-photo"
+      />
       <div class="card-stickers">
-        <div class="card-sticker sticker-comfort">Комфорт</div>
-        <div class="card-sticker sticker-credit">Рассрочка 12 мес.</div>
+        <div v-if="building.comfort" class="card-sticker sticker-comfort">
+          Комфорт
+        </div>
+        <div v-if="building.credit" class="card-sticker sticker-credit">
+          Рассрочка 12 мес.
+        </div>
       </div>
     </div>
     <div class="card-content">
-      <div class="card-location">ул. Большая Караванная</div>
-      <h3 class="card-title">ЖК River House</h3>
-      <div class="card-subtitles">
-        <span class="card-subtitle card-metro">Российская</span>
-        <span class="card-subtitle card-time">5 минут пешком</span>
-      </div>
+      <div class="card-location">{{ building.street }}</div>
+      <h3 class="card-title">{{ building.name }}</h3>
     </div>
-    <button class="card-favorite">
-      <img src="@/assets/icons/icon-favorite.svg" alt="favorite icon" />
+    <div class="card-subtitles">
+      <span class="card-subtitle card-metro">{{ building.metro }}</span>
+      <span class="card-subtitle card-time">{{ building.time }}</span>
+    </div>
+    <button @click="likeCard = !likeCard" class="card-favorite">
+      <img
+        v-if="!likeCard"
+        src="@/assets/icons/icon-favorite.svg"
+        alt="favorite icon"
+      />
+      <img
+        v-if="likeCard"
+        src="@/assets/icons/icon-favorite-active.svg"
+        alt="favorite icon"
+      />
     </button>
   </div>
 </template>
@@ -24,19 +40,30 @@
 <script>
 export default {
   name: "Card-Component",
+
+  data() {
+    return {
+      likeCard: false,
+    };
+  },
+
+  props: {
+    building: {
+      type: Object,
+      required: true,
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .card {
   position: relative;
-  flex: 0 1 31%;
-  margin-bottom: 24px;
   border-radius: 16px;
   background: #fff;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
   @media (any-hover: hover) {
     &:hover {
@@ -49,36 +76,17 @@ export default {
       }
     }
   }
-
-  @media (max-width: 1300px) {
-    flex: 0 1 48%;
-  }
-
-  @media (max-width: 992px) {
-    flex: 0 1 100%;
-  }
-
-  @media (max-width: 767px) {
-    flex: 0 1 48%;
-  }
-
-  @media (max-width: 600px) {
-    flex: 0 1 100%;
-  }
 }
 
 .card-image {
   position: relative;
+  height: 360px;
 
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: all 0.3s;
-  }
-
-  @media (max-width: 992px) {
-    max-height: 360px;
   }
 }
 
@@ -119,6 +127,7 @@ export default {
 
 .card-subtitles {
   position: absolute;
+  z-index: 2;
   bottom: 20px;
   left: 20px;
   display: flex;
