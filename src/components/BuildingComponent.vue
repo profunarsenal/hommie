@@ -3,9 +3,9 @@
     <div class="container">
       <div class="building-header">
         <search-field />
-        <div class="building-results">
+        <div class="building-results" @click="lol">
           Показано
-          <span>{{ filteredBuildings.length }} результатов</span>
+          <span>{{ filteredByCredit.length }} результатов</span>
         </div>
         <button class="building-sort-btn">
           <span>Сортировать по</span>
@@ -13,7 +13,7 @@
       </div>
       <div class="building-wrapper">
         <card-component
-          v-for="building in filteredBuildings"
+          v-for="building in filteredByCredit"
           :key="building"
           :building="building"
         />
@@ -25,6 +25,7 @@
 <script>
 import CardComponent from "@/components/CardComponent.vue";
 import SearchField from "@/components/SearchField.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Building-Component",
@@ -34,60 +35,99 @@ export default {
     SearchField,
   },
 
-  data() {
-    return {
-      buildings: [],
-    };
-  },
-
   computed: {
-    fieldSearch() {
-      return this.$store.getters["getFieldSearch"];
-    },
-
-    metroList() {
-      return this.$store.getters["getMetroList"];
-    },
+    ...mapGetters([
+      "BUILDINGS",
+      "FIELDSEARCH",
+      "METRO",
+      "BUILDCHECKBOXES",
+      "OPTIONS",
+      "CREDIT",
+    ]),
 
     searchBuildings() {
-      return this.buildings.filter(
+      return this.BUILDINGS.filter(
         (building) =>
           building.name
             .toLowerCase()
-            .includes(this.fieldSearch.toLowerCase()) ||
-          building.street.toLowerCase().includes(this.fieldSearch.toLowerCase())
+            .includes(this.FIELDSEARCH.toLowerCase()) ||
+          building.street.toLowerCase().includes(this.FIELDSEARCH.toLowerCase())
       );
     },
 
-    filteredBuildings() {
-      const buildings = [];
+    filteredByMetro() {
+      const metroBuildingsArray = [];
 
-      this.searchBuildings.forEach((building) => {
-        this.metroList.forEach((metro) => {
-          if (building.metro === metro) {
-            buildings.push(building);
+      this.METRO.forEach((metro) => {
+        this.searchBuildings.forEach((building) => {
+          if (metro === building.metro) {
+            metroBuildingsArray.push(building);
           }
         });
       });
 
-      if (this.metroList.length > 0) {
-        return buildings;
+      if (this.METRO.length > 0) {
+        return metroBuildingsArray;
       } else {
         return this.searchBuildings;
+      }
+    },
+
+    filteredByStatusBuilding() {
+      if (this.BUILDCHECKBOXES.anyBuild) {
+        return this.filteredByMetro;
+      } else {
+        const buildingArray = [];
+
+        this.BUILDCHECKBOXES.buildCheckboxesArray.forEach((status) => {
+          this.filteredByMetro.forEach((building) => {
+            if (status === building.term) {
+              buildingArray.push(building);
+            }
+          });
+        });
+
+        if (this.BUILDCHECKBOXES.buildCheckboxesArray.length > 0) {
+          return buildingArray;
+        } else {
+          return this.filteredByMetro;
+        }
+      }
+    },
+
+    filteredByOptions() {
+      if (this.OPTIONS.length > 0) {
+        return this.filteredByStatusBuilding.filter((building) => {
+          let flag = true;
+
+          this.OPTIONS.forEach((option) => {
+            if (!building[option]) {
+              flag = false;
+            }
+          });
+
+          return flag;
+        });
+      } else {
+        return this.filteredByStatusBuilding;
+      }
+    },
+
+    filteredByCredit() {
+      if (this.CREDIT) {
+        return this.filteredByOptions.filter((building) => building.credit);
+      } else {
+        return this.filteredByOptions;
       }
     },
   },
 
   mounted() {
-    this.getBuildingsList();
+    this.$store.dispatch("getBuildings");
   },
 
   methods: {
-    getBuildingsList() {
-      fetch("https://api.jsonbin.io/b/62bbfc57402a5b380240adff")
-        .then((res) => res.json())
-        .then((data) => (this.buildings = data));
-    },
+    lol() {},
   },
 };
 </script>

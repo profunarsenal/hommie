@@ -1,12 +1,28 @@
 <template>
   <div class="search-field">
-    <input @blur="hideSearchField" type="text" placeholder="Поиск" />
+    <input
+      @blur="hideSearchField"
+      type="text"
+      placeholder="Поиск"
+      v-model="fieldSearch"
+    />
   </div>
 </template>
 
 <script>
 export default {
   name: "Search-Field",
+
+  computed: {
+    fieldSearch: {
+      get() {
+        return this.$store.state.fieldSearch;
+      },
+      set(value) {
+        this.$store.commit("updateFieldSearch", value);
+      },
+    },
+  },
 
   methods: {
     hideSearchField() {

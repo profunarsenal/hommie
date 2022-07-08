@@ -11,7 +11,6 @@
               <input
                 class="checkbox-hide"
                 type="checkbox"
-                id="alabinskaya"
                 value="Алабинская"
                 v-model="metroCheckboxes"
               />
@@ -23,7 +22,6 @@
               <input
                 class="checkbox-hide"
                 type="checkbox"
-                id="rossiyskaya"
                 value="Российская"
                 v-model="metroCheckboxes"
               />
@@ -35,7 +33,6 @@
               <input
                 class="checkbox-hide"
                 type="checkbox"
-                id="moskovskaya"
                 value="Московская"
                 v-model="metroCheckboxes"
               />
@@ -47,7 +44,6 @@
               <input
                 class="checkbox-hide"
                 type="checkbox"
-                id="gagarinskaya"
                 value="Гагаринская"
                 v-model="metroCheckboxes"
               />
@@ -59,7 +55,6 @@
               <input
                 class="checkbox-hide"
                 type="checkbox"
-                id="sportivnaya"
                 value="Спортивная"
                 v-model="metroCheckboxes"
               />
@@ -71,7 +66,6 @@
               <input
                 class="checkbox-hide"
                 type="checkbox"
-                id="sovetskaya"
                 value="Советская"
                 v-model="metroCheckboxes"
               />
@@ -83,19 +77,17 @@
               <input
                 class="checkbox-hide"
                 type="checkbox"
-                id="pobeda"
-                value="Победа"
+                value="Победы"
                 v-model="metroCheckboxes"
               />
               <span class="checkbox-show">
-                <span class="metro-name">Победа</span>
+                <span class="metro-name">Победы</span>
               </span>
             </label>
             <label class="checkbox">
               <input
                 class="checkbox-hide"
                 type="checkbox"
-                id="bezymyanka"
                 value="Безымянка"
                 v-model="metroCheckboxes"
               />
@@ -107,8 +99,7 @@
               <input
                 class="checkbox-hide"
                 type="checkbox"
-                id="kirovskaya"
-                value="kirovskaya"
+                value="Кировская"
                 v-model="metroCheckboxes"
               />
               <span class="checkbox-show">
@@ -119,8 +110,7 @@
               <input
                 class="checkbox-hide"
                 type="checkbox"
-                id="yungorodok"
-                value="yungorodok"
+                value="Юнгородок"
                 v-model="metroCheckboxes"
               />
               <span class="checkbox-show">
@@ -133,19 +123,40 @@
           <h4 @click="toggleWidget" class="widget-title title">Срок сдачи</h4>
           <div class="term-checkboxes">
             <label class="checkbox">
-              <input class="checkbox-hide" type="checkbox" />
+              <input
+                class="checkbox-hide"
+                type="checkbox"
+                value="Любой"
+                v-model="anyBuild"
+                :disabled="buildCheckboxesArray.length === 0"
+              />
               <span class="checkbox-show">Любой</span>
             </label>
             <label class="checkbox">
-              <input class="checkbox-hide" type="checkbox" />
+              <input
+                class="checkbox-hide"
+                type="checkbox"
+                value="Сдан"
+                v-model="buildCheckboxesArray"
+              />
               <span class="checkbox-show">Сдан</span>
             </label>
             <label class="checkbox">
-              <input class="checkbox-hide" type="checkbox" />
+              <input
+                class="checkbox-hide"
+                type="checkbox"
+                value="В этом году"
+                v-model="buildCheckboxesArray"
+              />
               <span class="checkbox-show">В этом году</span>
             </label>
             <label class="checkbox">
-              <input class="checkbox-hide" type="checkbox" />
+              <input
+                class="checkbox-hide"
+                type="checkbox"
+                value="В следующем году"
+                v-model="buildCheckboxesArray"
+              />
               <span class="checkbox-show">В следующем году</span>
             </label>
           </div>
@@ -156,31 +167,66 @@
           </h4>
           <div class="options-checkboxes">
             <label class="option-checkbox">
-              <input class="option-checkbox-hide" type="checkbox" />
+              <input
+                class="option-checkbox-hide"
+                type="checkbox"
+                value="parking"
+                v-model="optionParking"
+              />
               <span class="option-checkbox-show">Парковка</span>
             </label>
             <label class="option-checkbox">
-              <input class="option-checkbox-hide" type="checkbox" />
+              <input
+                class="option-checkbox-hide"
+                type="checkbox"
+                value="school"
+                v-model="optionSchool"
+              />
               <span class="option-checkbox-show">Школа</span>
             </label>
             <label class="option-checkbox">
-              <input class="option-checkbox-hide" type="checkbox" />
+              <input
+                class="option-checkbox-hide"
+                type="checkbox"
+                value="kindergarten"
+                v-model="optionKindergarten"
+              />
               <span class="option-checkbox-show">Детский сад</span>
             </label>
             <label class="option-checkbox">
-              <input class="option-checkbox-hide" type="checkbox" />
+              <input
+                class="option-checkbox-hide"
+                type="checkbox"
+                value="studio"
+                v-model="optionStudio"
+              />
               <span class="option-checkbox-show">Студия</span>
             </label>
             <label class="option-checkbox">
-              <input class="option-checkbox-hide" type="checkbox" />
+              <input
+                class="option-checkbox-hide"
+                type="checkbox"
+                value="repair"
+                v-model="optionRepair"
+              />
               <span class="option-checkbox-show">С отделкой</span>
             </label>
             <label class="option-checkbox">
-              <input class="option-checkbox-hide" type="checkbox" />
+              <input
+                class="option-checkbox-hide"
+                type="checkbox"
+                value="lowRise"
+                v-model="optionLowRise"
+              />
               <span class="option-checkbox-show">Малоэтажный</span>
             </label>
             <label class="option-checkbox">
-              <input class="option-checkbox-hide" type="checkbox" />
+              <input
+                class="option-checkbox-hide"
+                type="checkbox"
+                value="penthouse"
+                v-model="optionPenthouse"
+              />
               <span class="option-checkbox-show">Пентхаус</span>
             </label>
           </div>
@@ -188,11 +234,16 @@
         <div class="sidebar-toggle">
           <h4 class="toggle-title title">Рассрочка</h4>
           <label class="toggle">
-            <input class="toggle-checkbox-hide" type="checkbox" />
+            <input
+              class="toggle-checkbox-hide"
+              type="checkbox"
+              value="credit"
+              v-model="credit"
+            />
             <span class="toggle-checkbox-show"></span>
           </label>
         </div>
-        <button class="reset-btn" type="reset">
+        <button class="reset-btn" type="button" @click="resetForm">
           <span>Сбросить все фильтры</span>
         </button>
       </form>
@@ -210,8 +261,106 @@ export default {
         return this.$store.state.metroCheckboxes;
       },
       set(value) {
-        this.$store.commit("updateMetroList", value);
+        this.$store.commit("updateMetroCheckboxes", value);
       },
+    },
+
+    anyBuild: {
+      get() {
+        return this.$store.state.buildCheckboxes.anyBuild;
+      },
+      set(value) {
+        this.$store.commit("updateAnyCheckbox", value);
+      },
+    },
+
+    buildCheckboxesArray: {
+      get() {
+        return this.$store.state.buildCheckboxes.buildCheckboxesArray;
+      },
+      set(value) {
+        this.$store.commit("updatebuildCheckboxes", value);
+      },
+    },
+
+    optionParking: {
+      get() {
+        return this.$store.state.options.parking;
+      },
+      set(value) {
+        this.$store.commit("updateOptionParking", value);
+      },
+    },
+
+    optionSchool: {
+      get() {
+        return this.$store.state.options.school;
+      },
+      set(value) {
+        this.$store.commit("updateOptionSchool", value);
+      },
+    },
+
+    optionKindergarten: {
+      get() {
+        return this.$store.state.options.kindergarten;
+      },
+      set(value) {
+        this.$store.commit("updateOptionKindergarten", value);
+      },
+    },
+
+    optionStudio: {
+      get() {
+        return this.$store.state.options.studio;
+      },
+      set(value) {
+        this.$store.commit("updateOptionStudio", value);
+      },
+    },
+
+    optionRepair: {
+      get() {
+        return this.$store.state.options.repair;
+      },
+      set(value) {
+        this.$store.commit("updateOptionRepair", value);
+      },
+    },
+
+    optionLowRise: {
+      get() {
+        return this.$store.state.options.lowRise;
+      },
+      set(value) {
+        this.$store.commit("updateOptionLowRise", value);
+      },
+    },
+
+    optionPenthouse: {
+      get() {
+        return this.$store.state.options.penthouse;
+      },
+      set(value) {
+        this.$store.commit("updateOptionPenthouse", value);
+      },
+    },
+
+    credit: {
+      get() {
+        return this.$store.state.credit;
+      },
+      set(value) {
+        this.$store.commit("updateCredit", value);
+      },
+    },
+  },
+
+  watch: {
+    buildCheckboxesArray() {
+      if (this.buildCheckboxesArray.length <= 0) {
+        this.$store.commit("updateAnyCheckbox", true);
+      }
     },
   },
 
@@ -219,6 +368,10 @@ export default {
     toggleWidget(e) {
       e.target.classList.toggle("toggle-widget");
       e.target.nextElementSibling.classList.toggle("toggle-widget-content");
+    },
+
+    resetForm() {
+      this.$store.commit("resetForm", true);
     },
   },
 };
