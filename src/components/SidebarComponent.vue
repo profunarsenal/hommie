@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar">
+  <div class="sidebar" :class="{ 'theme-dark': isDarkTheme }">
     <div class="container">
       <form class="sidebar-wrapper">
         <div class="sidebar-widget">
@@ -354,6 +354,10 @@ export default {
         this.$store.commit("updateCredit", value);
       },
     },
+
+    isDarkTheme() {
+      return this.$store.getters.isDarkTheme;
+    },
   },
 
   watch: {
@@ -392,6 +396,10 @@ export default {
     &.toggle-sidebar {
       left: 0;
       overflow: scroll;
+    }
+
+    &.theme-dark {
+      background-color: #222222;
     }
   }
 }

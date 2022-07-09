@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" :class="{ 'theme-dark': isDarkTheme }">
     <div class="card-image">
       <img
         :src="require(`@/assets/images/${building.image}`)"
@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-    <div class="card-content">
+    <div class="card-content" :class="{ 'theme-dark': isDarkTheme }">
       <div class="card-location">{{ building.street }}</div>
       <h3 class="card-title">{{ building.name }}</h3>
     </div>
@@ -53,6 +53,12 @@ export default {
       required: true,
     },
   },
+
+  computed: {
+    isDarkTheme() {
+      return this.$store.getters.isDarkTheme;
+    },
+  },
 };
 </script>
 
@@ -76,6 +82,16 @@ export default {
       }
     }
   }
+
+  &.theme-dark {
+    background: #000;
+
+    @media (any-hover: hover) {
+      &:hover {
+        box-shadow: 1px 5px 5px -5px rgb(255, 255, 255);
+      }
+    }
+  }
 }
 
 .card-image {
@@ -95,6 +111,10 @@ export default {
   z-index: 1;
   padding: 20px;
   background-color: #fff;
+
+  &.theme-dark {
+    background: #000;
+  }
 }
 
 .card-location {

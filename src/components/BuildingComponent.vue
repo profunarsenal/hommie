@@ -3,9 +3,9 @@
     <div class="container">
       <div class="building-header">
         <search-field />
-        <div class="building-results" @click="lol">
-          Показано
-          <span>{{ filteredByCredit.length }} результатов</span>
+        <div class="building-results">
+          Показано:
+          <span>{{ editTextResult }}</span>
         </div>
         <button class="building-sort-btn">
           <span>Сортировать по</span>
@@ -33,6 +33,12 @@ export default {
   components: {
     CardComponent,
     SearchField,
+  },
+
+  data() {
+    return {
+      textResults: [" результат", " результата", " результатов"],
+    };
   },
 
   computed: {
@@ -120,14 +126,29 @@ export default {
         return this.filteredByOptions;
       }
     },
+
+    editTextResult() {
+      if (
+        (this.filteredByCredit.length >= 5 &&
+          this.filteredByCredit.length <= 20) ||
+        this.filteredByCredit.length === 0
+      ) {
+        return this.filteredByCredit.length + this.textResults[2];
+      } else if (
+        this.filteredByCredit.length % 10 >= 2 &&
+        this.filteredByCredit.length % 10 <= 4
+      ) {
+        return this.filteredByCredit.length + this.textResults[1];
+      } else if (this.filteredByCredit.length % 10 === 1) {
+        return this.filteredByCredit.length + this.textResults[0];
+      } else {
+        return this.filteredByCredit.length + this.textResults[2];
+      }
+    },
   },
 
   mounted() {
     this.$store.dispatch("getBuildings");
-  },
-
-  methods: {
-    lol() {},
   },
 };
 </script>

@@ -1,20 +1,52 @@
 <template>
   <div class="mobile-navigation">
     <button @click="showSearchField" class="mobile-navigation-btn">
-      <img src="@/assets/icons/icon-search.svg" alt="icon-search" />
+      <img
+        v-if="!isDarkTheme"
+        src="@/assets/icons/icon-search.svg"
+        alt="icon-search"
+      />
+      <img
+        v-if="isDarkTheme"
+        src="@/assets/icons/icon-search-on.svg"
+        alt="icon-search"
+      />
     </button>
-    <button class="mobile-navigation-btn">
-      <img src="@/assets/icons/icon-dark.svg" alt="icon-dark" />
+    <button class="mobile-navigation-btn" @click="isDarkTheme = !isDarkTheme">
+      <img
+        v-if="!isDarkTheme"
+        src="@/assets/icons/icon-dark.svg"
+        alt="icon-dark"
+      />
+      <img
+        v-if="isDarkTheme"
+        src="@/assets/icons/icon-dark-on.svg"
+        alt="icon-dark"
+      />
     </button>
     <button @click="toggleSidebar" class="mobile-navigation-btn">
       <img
         v-if="!sidebarIsOpen"
+        v-show="!isDarkTheme"
         src="@/assets/icons/icon-burger.svg"
         alt="icon-menu"
       />
       <img
+        v-if="!sidebarIsOpen"
+        v-show="isDarkTheme"
+        src="@/assets/icons/icon-burger-on.svg"
+        alt="icon-menu"
+      />
+      <img
         v-if="sidebarIsOpen"
+        v-show="!isDarkTheme"
         src="@/assets/icons/icon-close.svg"
+        alt="icon-close"
+      />
+      <img
+        v-if="sidebarIsOpen"
+        v-show="isDarkTheme"
+        src="@/assets/icons/icon-close-on.svg"
         alt="icon-close"
       />
     </button>
@@ -29,6 +61,17 @@ export default {
     return {
       sidebarIsOpen: false,
     };
+  },
+
+  computed: {
+    isDarkTheme: {
+      get() {
+        return this.$store.state.isDarkTheme;
+      },
+      set(value) {
+        this.$store.commit("toggleDarkTheme", value);
+      },
+    },
   },
 
   methods: {

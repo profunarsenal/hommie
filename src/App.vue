@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="{ 'theme-dark': isDarkTheme }">
     <header-component />
     <div class="main">
       <sidebar-component />
@@ -12,6 +12,7 @@
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import SidebarComponent from "@/components/SidebarComponent.vue";
 import BuildingComponent from "@/components/BuildingComponent.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "App",
@@ -20,6 +21,12 @@ export default {
     HeaderComponent,
     SidebarComponent,
     BuildingComponent,
+  },
+
+  computed: {
+    isDarkTheme() {
+      return this.$store.getters.isDarkTheme;
+    },
   },
 };
 </script>
@@ -123,8 +130,6 @@ body {
   font-family: "Inter", sans-serif;
   font-size: 16px;
   font-weight: 500;
-  color: #142036;
-  background: #f4f4f4;
 
   &.lock {
     overflow: hidden;
@@ -143,5 +148,15 @@ body {
 
 .main {
   display: flex;
+}
+
+#app {
+  background-color: #f4f4f4;
+  color: #142036;
+
+  &.theme-dark {
+    background-color: #121212;
+    color: #fff;
+  }
 }
 </style>

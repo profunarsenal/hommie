@@ -18,7 +18,8 @@ export default createStore({
       lowRise: false,
       penthouse: false,
     },
-    credit: false
+    credit: false,
+    isDarkTheme: false
   },
 
   getters: {
@@ -46,6 +47,10 @@ export default createStore({
 
     CREDIT(state) {
       return state.credit
+    },
+
+    isDarkTheme(state) {
+      return state.isDarkTheme
     }
   },
 
@@ -119,7 +124,11 @@ export default createStore({
         penthouse: false,
       }
       state.fieldSearch = '';
-    }
+    },
+
+    toggleDarkTheme(state, value) {
+      state.isDarkTheme = value
+    },
   },
 
   actions: {
